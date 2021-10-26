@@ -1,6 +1,17 @@
 #encoding: utf-8
 
-values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-suits = ['\u2660', '\u2665', '\u2665', '\u2663']
+if Gem.win_platform?
+  Encoding.default_external = Encoding.find(Encoding.locale_charmap)
+  Encoding.default_internal = __ENCODING__
 
-puts "#{values.sample} of #{suits.sample}"
+  [STDIN, STDOUT].each do |io|
+    io.set_encoding(Encoding.default_external, Encoding.default_internal)
+  end
+end
+
+values = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+
+# Создадим массив с набором мастей, вместо названия масти — иконка-символ
+suits = ["♦", "♠", "♥ ", "♣"]
+
+puts "#{values.sample}#{suits.sample}"
